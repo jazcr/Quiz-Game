@@ -5,14 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    
     <title>Quiz</title>
 </head>
 <body>
     <div class="container">
-        <div id="home" class="flex-column flex-center"></div>
-            <h1>Quiz Game</h1>
-    
-
+        <div id="container-quest" class="hidden">
+            <div id="question"></div>
+            <div id="answer-btns" class="answer-grid">
+                <button class="btn">Option 1</button>
+                <button class="btn">Option 2</button>
+                <button class="btn">Option 3</button>
+                <button class="btn">Option 4</button>
+            </div>
+        </div>
+        <div class="control">
+            <button id="start-btn" class="start btn"></button>
+            <button id="next-btn" class="next btn hidden"></button>
+        </div>
+        
     </div>
 </body>
 </html>
