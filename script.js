@@ -29,36 +29,40 @@ function initQuiz() {
     setNextQues();
 }
 
-
+//// TIMER FUNCTION
 function setTime() {
   var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left";
 
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
       clearInterval(timerInterval);
-      //Calls function to end quiz
       endQuiz();
-      return;
+    } else if(setStatusClass !== correct) {
+        secondsLeft = timeEl.textContent.secondsLeft - 5;
     }
-
   }, 1000);
 }
 
+
+//// 'OUT OF TIME' FUNCTION
 function endQuiz() {
   timeEl.textContent = " ";
   startBtn.classList.remove('hidden')
   startBtn.innerText = 'Restart'
+  startBtn.addEventListener('click', initQuiz)
 }
 
-setTime();
+// setTime();
 
 
+////FUNCTION FOR CLEARING BOARD AND SETTING NEXT QUESTION
 function setNextQues() {
     resetBoard();
     showQuest(quizQuestion[currentQuesIndex]);
 }
 
+////POPULATING QUESTION/ ANSWERS
 function showQuest(question) {
         questEl.innerText = question.question;
         question.answers.forEach( answer => {
@@ -77,12 +81,13 @@ function showQuest(question) {
 function resetBoard () {
     nextBtn.classList.add('hidden')
 
-    /// "If there's a child inside the element, remove it"
+    /// "If there's a child inside the element, remove it"/
     while (answersEl.firstChild) {
         answersEl.removeChild(answersEl.firstChild);
     }
 }
 
+///FUNCTION FOR USER'S ANSWER SELECTION
 function userSelect (e) {
     const btnSelected = e.target 
     const correct = btnSelected.dataset.correct
@@ -98,6 +103,7 @@ function userSelect (e) {
     }
 }
 
+///CLASSIFYING CORRECT/INCORRECT ANSWER
 function setStatusClass(element, correct) {
     clearStatus(element)
     if (correct) {
