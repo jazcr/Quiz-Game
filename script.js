@@ -1,19 +1,26 @@
 const startBtn = document.getElementById('start-btn')
 const nextBtn = document.getElementById('next-btn')
-
 const questConEl = document.getElementById('container-quest')
 const questEl = document.getElementById('question')
 const answersEl = document.getElementById('answer-btns')
-// let currentQuesIndex = 0;
+const gameScore = 0;
+var secondsLeft = 20;
+var timeEl = document.getElementById("countdown");
 
 
 
+///when start button is clicked, initialize quiz
 startBtn.addEventListener('click', initQuiz)
+startBtn.addEventListener('click', setTime)
+
+//when next button is clicked, go to next question
 nextBtn.addEventListener('click', () => {
     currentQuesIndex++
     setNextQues()
 })
 
+
+///function to initialize quiz
 function initQuiz() {
     //// Will HIDE start button and SHOW hidden elements in container
     startBtn.classList.add('hidden');
@@ -21,6 +28,31 @@ function initQuiz() {
     questConEl.classList.remove('hidden');
     setNextQues();
 }
+
+
+function setTime() {
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds left";
+
+    if(secondsLeft === 0) {
+      clearInterval(timerInterval);
+      //Calls function to end quiz
+      endQuiz();
+      return;
+    }
+
+  }, 1000);
+}
+
+function endQuiz() {
+  timeEl.textContent = " ";
+  startBtn.classList.remove('hidden')
+  startBtn.innerText = 'Restart'
+}
+
+setTime();
+
 
 function setNextQues() {
     resetBoard();
